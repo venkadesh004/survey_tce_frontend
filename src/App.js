@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
-
+import {BrowserRouter as Router , Routes, Route} from "react-router-dom"
+import RecruitersFeedback from "./pages/RecruitersFeedback";
+import Navbar from "./components/Navbar"
+import FormMenu from "./pages/FormMenu";
+import ParentsFeedback from "./pages/ParentsFeedback";
+import CourseExitSurvey from "./pages/CourseExitSurvey";
+import EmployerFeedback from "./pages/EmployerFeedback";
+import GraduateExitSurvey from "./pages/GraduateExitSurvey";
+import AlumniFeedback from "./pages/AlumniFeedback";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar/>
+      <Routes>
+        <Route path="/" element={<FormMenu/>}/>
+        <Route path="/recruitersFeedback" element={<RecruitersFeedback/>}/>
+        <Route path="/parentsFeedback" element={<ParentsFeedback/>} />
+        <Route path="/graduateExitSurvey" element={<GraduateExitSurvey/>}/>
+        <Route path="/courseExitSurvey" element={<CourseExitSurvey/>}/>
+        <Route path = "/alumniFeedback" element = {<AlumniFeedback/>}/>
+        <Route path="/employerFeedback" element={<EmployerFeedback/>}/>
+      </Routes>
+    </Router>
   );
 }
 
