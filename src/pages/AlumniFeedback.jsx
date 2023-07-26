@@ -69,8 +69,10 @@ const AlumniFeedback = () => {
           onSubmit={handleSubmit(async (data) => {
             console.log(data);
             var index = 4;
-              const response = await axios.post(urlAddress[index]+routeAddresses[index], data);
-              console.log(response);
+            console.log(urlAddress[index]+routeAddresses[index]);
+            await axios.post(urlAddress[index]+routeAddresses[index], data).then(reponse => {
+              console.log(reponse);
+            });
             setStep(step + 1);
           })}
         >

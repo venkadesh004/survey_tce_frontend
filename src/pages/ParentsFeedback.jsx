@@ -38,8 +38,10 @@ const ParentsFeedback = () => {
                   onSubmit={handleSubmit(async (data) => {
                     console.log(data);
                     var index = 1;
-              const response = await axios.post(urlAddress[index]+routeAddresses[index], data);
-              console.log(response);
+                    console.log(urlAddress[index]+routeAddresses[index]);
+                    await axios.post(urlAddress[index]+routeAddresses[index], data).then(reponse => {
+                      console.log(reponse);
+                    });
                     setThanks(!thanks);
                   })}
                 >
