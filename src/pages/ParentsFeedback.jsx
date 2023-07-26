@@ -3,6 +3,9 @@ import { useForm } from "react-hook-form";
 import Thanks from "./Thanks";
 import {Link} from 'react-router-dom'
 
+import { urlAddress, routeAddresses } from "./API";
+import axios from "axios";
+
 const ParentsFeedback = () => {
   const [thanks, setThanks] = useState(0);
   const {
@@ -32,8 +35,11 @@ const ParentsFeedback = () => {
             {!thanks && (
               <section>
                 <form
-                  onSubmit={handleSubmit((data) => {
+                  onSubmit={handleSubmit(async (data) => {
                     console.log(data);
+                    var index = 1;
+              const response = await axios.post(urlAddress[index]+routeAddresses[index], data);
+              console.log(response);
                     setThanks(!thanks);
                   })}
                 >

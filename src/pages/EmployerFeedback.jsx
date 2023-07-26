@@ -3,6 +3,9 @@ import Thanks from "./Thanks";
 import { useForm } from "react-hook-form";
 import {Link} from "react-router-dom";
 
+import { urlAddress, routeAddresses } from "./API";
+import axios from "axios";
+
 const EmployerFeedback = () => {
   const [thanks, setThanks] = useState(0);
   const {
@@ -30,8 +33,11 @@ const EmployerFeedback = () => {
           {!thanks && (
             <section>
               <form
-                onSubmit={handleSubmit((data) => {
+                onSubmit={handleSubmit(async (data) => {
                   console.log(data);
+                  var index = 3;
+              const response = await axios.post(urlAddress[index]+routeAddresses[index], data);
+              console.log(response);
                   setThanks(!thanks)
                 })}
               >

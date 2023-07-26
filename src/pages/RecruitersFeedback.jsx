@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import Thanks from "./Thanks";
 import { Link } from "react-router-dom";
 
+import { urlAddress, routeAddresses } from "./API";
+import axios from "axios";
+
 const RecruitersFeedback = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -65,8 +68,11 @@ const RecruitersFeedback = () => {
           )}
           <form 
             className="flex flex-col gap-5 px-3"
-            onSubmit={handleSubmit((data) => {
+            onSubmit={handleSubmit(async (data) => {
               console.log(data);
+              var index = 0;
+              const response = await axios.post(urlAddress[index]+routeAddresses[index], data);
+              console.log(response);
               setStep(step + 1);
             })}
           >

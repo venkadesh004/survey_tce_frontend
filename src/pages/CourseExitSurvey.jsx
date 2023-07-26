@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import Thanks from "./Thanks";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+
+import { urlAddress, routeAddresses } from "./API";
+import axios from "axios";
+
 const CourseExitSurvey = () => {
   const [thanks, setThanks] = useState(0);
   const {
@@ -31,8 +35,11 @@ const CourseExitSurvey = () => {
             {!thanks && (
               <section>
                 <form
-                  onSubmit={handleSubmit((data) => {
+                  onSubmit={handleSubmit(async (data) => {
                     console.log(data);
+                    var index = 2;
+              const response = await axios.post(urlAddress[index]+routeAddresses[index], data);
+              console.log(response);
                     setThanks(!thanks);
                   })}
                 >
