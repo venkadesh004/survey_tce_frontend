@@ -3,6 +3,8 @@ import Thanks from "./Thanks";
 import { useForm } from "react-hook-form";
 import Arrow from "../components/Arrow";
 import {Link} from 'react-router-dom';
+import {urlAddress, addRequests, routeAddresses} from "./API";
+import axios from "axios";
 
 const GraduateExitSurvey = () => {
 
@@ -60,8 +62,11 @@ const GraduateExitSurvey = () => {
           )}
           <form
             className="flex flex-col gap-5 px-3"
-            onSubmit={handleSubmit((data) => {
+            onSubmit={handleSubmit(async (data) => {
               console.log(data);
+              var index = 5;
+              const response = await axios.post(urlAddress+routeAddresses[index]+addRequests[index], data);
+            console.log(response);
               setStep(step + 1);
             })}
           >

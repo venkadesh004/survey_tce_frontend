@@ -3,9 +3,11 @@ import Thanks from "./Thanks";
 import { useForm } from "react-hook-form";
 import Arrow from "../components/Arrow";
 import { Link } from "react-router-dom";
+import { urlAddress, addRequests, routeAddresses } from "./API";
+
+import axios from "axios";
 
 const AlumniFeedback = () => {
-  
   const {
     register,
     handleSubmit,
@@ -63,8 +65,11 @@ const AlumniFeedback = () => {
 
         <form
           className="flex flex-col gap-5 px-5 shadow-2xl"
-          onSubmit={handleSubmit((data) => {
+          onSubmit={handleSubmit(async (data) => {
             console.log(data);
+            var index = 4;
+              const response = await axios.post(urlAddress+routeAddresses[index]+addRequests[index], data);
+            console.log(response);
             setStep(step + 1);
           })}
         >
