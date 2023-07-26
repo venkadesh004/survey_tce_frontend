@@ -65,8 +65,8 @@ const GraduateExitSurvey = () => {
             className="flex flex-col gap-5 px-3"
             onSubmit={handleSubmit(async (data) => {
               var index = 5;
-              console.log(urlAddress[index]+routeAddresses[index]);
-              await axios.post(urlAddress[index]+routeAddresses[index], data).then(reponse => {
+              console.log(urlAddress+routeAddresses[index]);
+              await axios.post(urlAddress+routeAddresses[index], data).then(reponse => {
                 console.log(reponse);
               });
               setStep(step + 1);
