@@ -3,9 +3,6 @@ import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import Thanks from "./Thanks";
 import { Link } from "react-router-dom";
-import { urlAddress, routeAddresses, addRequests } from "./API";
-
-import axios from "axios";
 
 const RecruitersFeedback = () => {
   useEffect(() => {
@@ -68,12 +65,8 @@ const RecruitersFeedback = () => {
           )}
           <form 
             className="flex flex-col gap-5 px-3"
-            onSubmit={handleSubmit(async (data) => {
+            onSubmit={handleSubmit((data) => {
               console.log(data);
-              var index = 0;
-              console.log(urlAddress+routeAddresses[index]+addRequests[index]);
-              const response = await axios.post(urlAddress+routeAddresses[index]+addRequests[index], data);
-            console.log(response);
               setStep(step + 1);
             })}
           >
