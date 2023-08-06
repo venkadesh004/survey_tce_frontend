@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import Thanks from "./Thanks";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import SubmittingForm from "./SubmittingForm";
 
 import { urlAddress, routeAddresses } from "./API";
 import axios from "axios";
 
 const CourseExitSurvey = () => {
   const [thanks, setThanks] = useState(0);
+  const [loading , setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -32,16 +35,20 @@ const CourseExitSurvey = () => {
             </div>
           </div>
           <div className="px-3 shadow-2xl">
-            {!thanks && (
+            {!thanks && !loading && (
               <section>
                 <form
                   onSubmit={handleSubmit(async (data) => {
                     console.log(data);
                     var index = 2;
-                    console.log(urlAddress+routeAddresses[index]);
-                    await axios.post(urlAddress+routeAddresses[index], data).then(reponse => {
-                      console.log(reponse);
-                    });
+                    console.log(urlAddress + routeAddresses[index]);
+                    setLoading(true)
+                    await axios
+                      .post(urlAddress + routeAddresses[index], data)
+                      .then((reponse) => {
+                        console.log(reponse);
+                        setLoading(false)
+                      });
                     setThanks(!thanks);
                   })}
                 >
@@ -706,11 +713,20 @@ const CourseExitSurvey = () => {
                 </form>
               </section>
             )}
-            {thanks == 1 && (
+            {loading ? (
+              <SubmittingForm />
+            ) : (
+              thanks == 1 && (
+                <section className>
+                  <Thanks />
+                </section>
+              )
+            )}
+            {/* {thanks == 1 && (
               <section>
                 <Thanks />
               </section>
-            )}
+            )} */}
           </div>
         </div>
       </div>

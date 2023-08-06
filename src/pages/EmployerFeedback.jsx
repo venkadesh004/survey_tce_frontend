@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import Thanks from "./Thanks";
+import SubmittingForm from "./SubmittingForm"
 import { useForm } from "react-hook-form";
 import {Link} from "react-router-dom";
 
 import { urlAddress, routeAddresses } from "./API";
 import axios from "axios";
 
+
 const EmployerFeedback = () => {
   const [thanks, setThanks] = useState(0);
+  const [loading , setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -29,18 +33,20 @@ const EmployerFeedback = () => {
             </Link>
         </div>
         </div>
-        <div className="px-3 shadow-2xl ">
-          {!thanks && (
+        <div className="px-3 shadow-2xl rounded-lg">
+          {!thanks && !loading && (
             <section>
               <form
                 onSubmit={handleSubmit(async (data) => {
                   console.log(data);
                   var index = 3;
                   console.log(urlAddress+routeAddresses[index]);
+                  setLoading(true)
                   await axios.post(urlAddress+routeAddresses[index], data).then(reponse => {
                     console.log(reponse);
                   });
                   setThanks(!thanks)
+                  setLoading(false)
                 })}
               >
                 <div className={labelDivStyle}>
@@ -432,11 +438,14 @@ const EmployerFeedback = () => {
               </form>
             </section>
           )}
-          {thanks == 1 && (
+          {
+            loading?(<SubmittingForm/>):(thanks==1 && ( <Thanks/>))
+          }
+          {/* {thanks == 1 && (
             <section>
               <Thanks />
             </section>
-          )}
+          )} */}
         </div>
       </div>
     </div>

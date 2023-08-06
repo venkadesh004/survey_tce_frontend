@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Thanks from "./Thanks";
-import {Link} from 'react-router-dom'
+import SubmittingForm from "./SubmittingForm"
+import { Link } from "react-router-dom";
 
 import { urlAddress, routeAddresses } from "./API";
 import axios from "axios";
 
 const ParentsFeedback = () => {
   const [thanks, setThanks] = useState(0);
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -25,23 +27,27 @@ const ParentsFeedback = () => {
         <div className="h-65v ">
           <div className="bg-red-500 text-white mb-4 px-4 py-6 flex flex-col gap-3 rounded-lg  ">
             <div className="flex flex-col sm:flex-row gap-5 sm:gap-0  sm:w-full sm:justify-between sm:items-center ">
-            <h1 className="text-3xl font-bold">Parents Feedback</h1>
-            <Link className={homeButtonStyle} to="/" >
-              Home
-            </Link>
+              <h1 className="text-3xl font-bold">Parents Feedback</h1>
+              <Link className={homeButtonStyle} to="/">
+                Home
+              </Link>
             </div>
           </div>
           <div className="px-3 shadow-2xl ">
-            {!thanks && (
+            {!thanks && !loading && (
               <section>
                 <form
                   onSubmit={handleSubmit(async (data) => {
                     console.log(data);
                     var index = 1;
-                    console.log(urlAddress+routeAddresses[index]);
-                    await axios.post(urlAddress+routeAddresses[index], data).then(reponse => {
-                      console.log(reponse);
-                    });
+                    console.log(urlAddress + routeAddresses[index]);
+                    setLoading(true);
+                    await axios
+                      .post(urlAddress + routeAddresses[index], data)
+                      .then((reponse) => {
+                        console.log(reponse);
+                        setLoading(false);
+                      });
                     setThanks(!thanks);
                   })}
                 >
@@ -97,11 +103,11 @@ const ParentsFeedback = () => {
                     <label htmlFor="">Phone number</label>
                     <input
                       {...register("mobile", {
-                        required: 'Phone number is required',
+                        required: "Phone number is required",
                         pattern: {
-                          value: /^\d{10}$/, 
-                          message: 'Invalid phone number'
-                        }
+                          value: /^\d{10}$/,
+                          message: "Invalid phone number",
+                        },
                       })}
                       type="text"
                       className="rounded-sm px-1 py-1  focus:outline-red-500 border-2 "
@@ -335,11 +341,17 @@ const ParentsFeedback = () => {
                 </form>
               </section>
             )}
-            {thanks == 1 && (
+            {/* {thanks == 1 && (
               <section>
                 <Thanks />
               </section>
-            )}
+            )} */}
+            {
+              loading? <SubmittingForm/> : thanks == 1 && (
+                <section>
+                  <Thanks />
+                </section>)
+            }
           </div>
         </div>
       </div>
